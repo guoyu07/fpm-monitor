@@ -14,7 +14,7 @@ func main() {
 	requestParam["REQUEST_METHOD"] = "GET"
 	requestParam["SCRIPT_NAME"] = "/status"
 	requestParam["SCRIPT_FILENAME"] = "/status"
-	requestParam["QUERY_STRING"] = "&json&full"
+	requestParam["QUERY_STRING"] = "full"
 	resp, err := fc.Get(requestParam)
 	if err != nil {
 		panic(err)
