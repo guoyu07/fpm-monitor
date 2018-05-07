@@ -5,6 +5,8 @@ import (
 	"log"
 )
 
+type RequestParam map[string]string
+
 func main() {
 	client := &FastCgiClient{}
 	fc := client.New("tcp", "127.0.0.1:9000")
@@ -21,6 +23,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Println("content:", string(content))
+	log.Println(string(content))
 	defer resp.Body.Close()
+	select {}
 }
