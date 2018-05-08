@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 
 	"github.com/tomasen/fcgi_client"
@@ -18,5 +19,26 @@ func (clinet *FastCgiClient) New(network, address string) *fcgiclient.FCGIClient
 }
 
 type Monitor struct {
-	Fci map[string]*fcgiclient.FCGIClient
+	Connection *fcgiclient.FCGIClient
+}
+
+func (monitor *Monitor) NewConnection(netType, address string) *Monitor {
+	monitor.Connection = (&FastCgiClient{}).New(netType, address)
+	return monitor
+}
+
+func (monitor *Monitor) GetFPMStatus(name string, reqParmas map[string]RequestParam) []byte {
+	resp, err := monitor.Connection.Get(reqParmas[name])
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	log.Println(string(content))
+	defer resp.Body.Close()
+	return content
 }
