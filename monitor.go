@@ -29,6 +29,7 @@ func (monitor *Monitor) NewConnection(netType, address string) *Monitor {
 
 func (monitor *Monitor) GetFPMStatus(name string, reqParmas map[string]RequestParam) []byte {
 	resp, err := monitor.Connection.Get(reqParmas[name])
+	defer monitor.Connection.Close()
 	if err != nil {
 		log.Println(err)
 		return nil
