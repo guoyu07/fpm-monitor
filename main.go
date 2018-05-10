@@ -19,11 +19,10 @@ func main() {
 	monitor := &Monitor{}
 
 	for {
-		content := monitor.NewConnection("tcp", "127.0.0.1:9000").GetFPMStatus("localhost", reqParma)
-		log.Printf("%s", string(content))
 		select {
-		case <-time.After(time.Second * 1):
-
+		case <-time.After(time.Second * 30):
+			content := monitor.NewConnection("tcp", "127.0.0.1:9000").GetFPMStatus("localhost", reqParma)
+			log.Printf("%s", string(content))
 			break
 		}
 	}
