@@ -13,7 +13,7 @@ func main() {
 	requestParam["REQUEST_METHOD"] = "GET"
 	requestParam["SCRIPT_NAME"] = "/status"
 	requestParam["SCRIPT_FILENAME"] = "/status"
-	requestParam["QUERY_STRING"] = "full"
+	requestParam["QUERY_STRING"] = "json&full"
 	reqParma["localhost"] = requestParam
 
 	monitor := &Monitor{}
